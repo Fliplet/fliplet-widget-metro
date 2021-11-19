@@ -118,6 +118,10 @@
   font-size: 1.1em;
   font-weight: bold;
   margin: 0;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  overflow-wrap: break-word;
 }
 /* METRO SIZES */
 .panels.size11 {
