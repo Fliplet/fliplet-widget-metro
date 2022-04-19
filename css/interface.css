@@ -273,6 +273,10 @@ textarea.form-control {
   margin-left: 10px;
 }
 
+.form-horizontal h2 {
+  margin-top: 0;
+}
+
 h2 small {
   color: #14505e;
 }
