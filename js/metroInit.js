@@ -37,7 +37,7 @@ UIFreewallVertical = (function() {
     function resizePanels() {
       var $container = $('[data-metro-id="' + data.id + '"]:not([data-mce-bogus] [data-metro-id="' + data.id + '"])').parent();
       var $panelsContainer = $container.find('.metro-panels ul');
-      var containerWidth = $container.width();
+      var containerWidth = $container.length ? $container.get(0).getBoundingClientRect().width : 0;
 
       if (containerWidth >= 1300) {
         $panelsContainer.attr('data-container-size', 1300);
@@ -61,7 +61,8 @@ UIFreewallVertical = (function() {
     wall.reset({
       selector: '.panels',
       cellW: function() {
-        var width = $('[data-metro-id="' + data.id + '"]:not([data-mce-bogus] [data-metro-id="' + data.id + '"])').parent().width();
+        var $parent = $('[data-metro-id="' + data.id + '"]:not([data-mce-bogus] [data-metro-id="' + data.id + '"])').parent();
+        var width = $parent.length ? $parent.get(0).getBoundingClientRect().width : 0;
 
         if (width >= 1300) {
           return 330;
@@ -73,12 +74,13 @@ UIFreewallVertical = (function() {
           return 185;
         } else if (width >= 420) {
           return 160;
-        } else {
-          return 145;
         }
+
+        return 145;
       },
       cellH: function() {
-        var width = $('[data-metro-id="' + data.id + '"]:not([data-mce-bogus] [data-metro-id="' + data.id + '"])').parent().width();
+        var $parent = $('[data-metro-id="' + data.id + '"]:not([data-mce-bogus] [data-metro-id="' + data.id + '"])').parent();
+        var width = $parent.length ? $parent.get(0).getBoundingClientRect().width : 0;
 
         if (width >= 1300) {
           return 330;
@@ -90,9 +92,9 @@ UIFreewallVertical = (function() {
           return 185;
         } else if (width >= 420) {
           return 160;
-        } else {
-          return 145;
         }
+
+        return 145;
       },
       gutterY: data.enableGap ? 10 : 0,
       gutterX: data.enableGap ? 10 : 0,
@@ -105,6 +107,7 @@ UIFreewallVertical = (function() {
     });
 
     var images = wall.container.find('.panels img');
+
     if (images.length) {
       images.find('img').load(function() {
         wall.fitWidth();
