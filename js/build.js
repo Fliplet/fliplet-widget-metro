@@ -5,8 +5,8 @@ Fliplet.Widget.instance('metro', function(data) {
   var $container = $(this);
 
   function authenticateImages() {
-    _.forEach(data.items, function(item) {
-      if (!_.get(item, 'imageConf.url') || !Fliplet.Media.isRemoteUrl(item.imageConf.url)) {
+    FlipletMetroUtils.forEach(data.items, function(item) {
+      if (!FlipletMetroUtils.get(item, 'imageConf.url') || !Fliplet.Media.isRemoteUrl(item.imageConf.url)) {
         return;
       }
 
@@ -26,17 +26,17 @@ Fliplet.Widget.instance('metro', function(data) {
       event.preventDefault();
 
       var itemID = $(this).data('metro-item-id');
-      var itemData = _.find(data.items, { id: itemID });
+      var itemData = FlipletMetroUtils.find(data.items, { id: itemID });
 
-      if (!_.isUndefined(_.get(itemData, 'linkAction'))
-        && !_.isEmpty(_.get(itemData, 'linkAction'))) {
+      if (!FlipletMetroUtils.isUndefined(FlipletMetroUtils.get(itemData, 'linkAction'))
+        && !FlipletMetroUtils.isEmpty(FlipletMetroUtils.get(itemData, 'linkAction'))) {
         Fliplet.Navigate.to(itemData.linkAction);
       }
     });
     authenticateImages();
   }
 
-  var debounceLoad = _.debounce(init, 500);
+  var debounceLoad = FlipletMetroUtils.debounce(init, 500);
 
   Fliplet().then(function() {
     Fliplet.Studio.onEvent(function(event) {
