@@ -11,6 +11,7 @@ function isUndefined(value) {
  * Iterates over elements of collection and invokes iteratee for each element
  * @param {Array|Object} collection - The collection to iterate over
  * @param {Function} iteratee - The function invoked per iteration
+ * @returns {void}
  */
 function forEach(collection, iteratee) {
   if (!collection || typeof iteratee !== 'function') {
@@ -50,6 +51,7 @@ function debounce(func, wait) {
       clearTimeout(timeout);
       func.apply(this, args);
     };
+
     clearTimeout(timeout);
     timeout = setTimeout(later, waitTime);
   };
@@ -67,6 +69,7 @@ function find(collection, predicate) {
   }
 
   let predicateFunc = predicate;
+
   if (typeof predicate === 'object' && predicate !== null) {
     predicateFunc = function(item) {
       for (let key in predicate) {
@@ -74,6 +77,7 @@ function find(collection, predicate) {
           return false;
         }
       }
+
       return true;
     };
   } else if (typeof predicate !== 'function') {
@@ -85,6 +89,7 @@ function find(collection, predicate) {
       return collection[i];
     }
   }
+
   return undefined;
 }
 
@@ -109,6 +114,7 @@ function remove(array, predicate) {
           return false;
         }
       }
+
       return true;
     };
   } else if (typeof predicate !== 'function') {
@@ -120,6 +126,7 @@ function remove(array, predicate) {
       removed.unshift(array.splice(i, 1)[0]);
     }
   }
+
   return removed;
 }
 
@@ -135,6 +142,7 @@ function sortBy(collection, iteratee) {
   }
 
   let iterateeFunc = iteratee;
+
   if (typeof iteratee === 'string') {
     iterateeFunc = function(item) {
       return item && item[iteratee];
@@ -149,6 +157,7 @@ function sortBy(collection, iteratee) {
 
     if (aVal < bVal) return -1;
     if (aVal > bVal) return 1;
+
     return 0;
   });
 }
@@ -159,15 +168,18 @@ function sortBy(collection, iteratee) {
  * @returns {boolean} Returns true if value is empty, else false
  */
 function isEmpty(value) {
-  if (value == null) {
+  if (value === null || value === undefined) {
     return true;
   }
+
   if (Array.isArray(value) || typeof value === 'string') {
     return value.length === 0;
   }
+
   if (typeof value === 'object') {
     return Object.keys(value).length === 0;
   }
+
   return false;
 }
 
@@ -179,7 +191,7 @@ function isEmpty(value) {
  * @returns {*} Returns the resolved value
  */
 function get(object, path, defaultValue) {
-  if (object == null || (!path && path !== 0)) {
+  if (object === null || object === undefined || (!path && path !== 0)) {
     return defaultValue;
   }
 
@@ -191,9 +203,10 @@ function get(object, path, defaultValue) {
   let result = object;
 
   for (let i = 0; i < keys.length; i++) {
-    if (result == null || typeof result !== 'object') {
+    if (result === null || result === undefined || typeof result !== 'object') {
       return defaultValue;
     }
+
     result = result[keys[i]];
   }
 
