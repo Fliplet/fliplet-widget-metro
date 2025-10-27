@@ -22,7 +22,7 @@ Fliplet.Widget.instance('metro', function(data) {
     ui.uiFreewallVertical[id] = new UIFreewallVertical(data);
     UIFreewallVertical.loadMetro();
 
-    $container.on('click', '.linked[data-metro-item-id]', function(event) {
+    $container.on('click', '.linked[data-metro-item-id]', async function(event) {
       event.preventDefault();
 
       var itemID = $(this).data('metro-item-id');
@@ -30,7 +30,15 @@ Fliplet.Widget.instance('metro', function(data) {
 
       if (!FlipletMetroUtils.isUndefined(FlipletMetroUtils.get(itemData, 'linkAction'))
         && !FlipletMetroUtils.isEmpty(FlipletMetroUtils.get(itemData, 'linkAction'))) {
-        Fliplet.Navigate.to(itemData.linkAction);
+        const action = itemData.linkAction || {};
+
+        try {
+          action.dynamicContext = await Fliplet.Widget.getDynamicContext($(this));
+        } catch (e) {
+          action.dynamicContext = {};
+        }
+
+        Fliplet.Navigate.to(action);
       }
     });
     authenticateImages();
