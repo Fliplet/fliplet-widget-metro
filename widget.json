@@ -20,13 +20,13 @@
       "fliplet-core",
       "fliplet-studio-ui",
       "jquery-ui",
-      "lodash",
       "handlebars",
       "bootstrap"
     ],
     "assets": [
       "vendor/bootstrap-colorpicker.min.js",
       "vendor/bootstrap-colorpicker.css",
+      "js/utils.js",
       "js/interface.templates.js",
       "js/interface.js",
       "css/interface.css"
@@ -37,11 +37,11 @@
       "fliplet-core",
       "bootstrap",
       "font-awesome",
-      "lodash",
       "handlebars"
     ],
     "assets": [
       "vendor/freewall.js",
+      "js/utils.js",
       "js/metroInit.js",
       "js/build.js",
       "css/build.css"
